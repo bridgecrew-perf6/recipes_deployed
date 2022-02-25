@@ -50,8 +50,9 @@ class Recipe:
         query = "SELECT * FROM RECIPES;"
         results = connectToMySQL('recipes_schema').query_db(query)
         all_recipes = []
-        for recipe in results:
-            all_recipes.append(recipe)
+        if results:
+            for recipe in results:
+                all_recipes.append(recipe)
         return all_recipes
     @classmethod
     def get_recipe(cls, data):
