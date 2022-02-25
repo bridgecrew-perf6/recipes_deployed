@@ -47,20 +47,21 @@ class User:
         return is_valid
     @classmethod
     def register_user(cls, data):
-        query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUE (%(fname)s, %(lname)s, %(email)s, %(password)s, NOW(), NOW())"
+        query = "INSERT INTO users (first_name, last_name, email, password, created_at, updated_at) VALUES (%(fname)s, %(lname)s, %(email)s, %(password)s, NOW(), NOW());"
         results = connectToMySQL('recipes_schema').query_db(query, data)
         print(results)
         return results
     @classmethod
     def get_user(cls, data):
-        query = "SELECT * FROM users WHERE email = %(email)s"
+        query = "SELECT * FROM users WHERE email = %(email)s;"
         results = connectToMySQL('recipes_schema').query_db(query, data)
         return cls(results[0])
     @classmethod
     def get_all_emails(cls):
-        query = "SELECT email FROM users"
+        query = "SELECT email FROM users;"
         results = connectToMySQL('recipes_schema').query_db(query)
         all_emails = []
-        for email in results:
-            all_emails.append(email['email'])
+        if results:
+            for email in results:
+                all_emails.append(email['email'])
         return all_emails

@@ -42,12 +42,12 @@ class Recipe:
         return is_valid
     @classmethod
     def add_recipe(cls, data):
-        query = "INSERT INTO recipes (name, description, instructions, date_made_on, under_thirty_minutes, created_at, updated_at, user_id) VALUE (%(name)s, %(description)s, %(instructions)s, %(date_made_on)s, %(under_thirty_minutes)s, NOW(), NOW(), %(user_id)s)"
+        query = "INSERT INTO recipes (name, description, instructions, date_made_on, under_thirty_minutes, created_at, updated_at, user_id) VALUES (%(name)s, %(description)s, %(instructions)s, %(date_made_on)s, %(under_thirty_minutes)s, NOW(), NOW(), %(user_id)s);"
         results = connectToMySQL('recipes_schema').query_db(query, data)
         return results
     @classmethod
     def get_all_recipes(cls):
-        query = "SELECT * FROM RECIPES"
+        query = "SELECT * FROM RECIPES;"
         results = connectToMySQL('recipes_schema').query_db(query)
         all_recipes = []
         for recipe in results:
@@ -55,16 +55,16 @@ class Recipe:
         return all_recipes
     @classmethod
     def get_recipe(cls, data):
-        query = "SELECT * FROM recipes WHERE id = %(id)s"
+        query = "SELECT * FROM recipes WHERE id = %(id)s;"
         results = connectToMySQL('recipes_schema').query_db(query, data)
         return cls(results[0])
     @classmethod
     def edit_recipe(cls, data):
-        query = "UPDATE recipes SET name = %(name)s, description = %(description)s, instructions = %(instructions)s, date_made_on = %(date_made_on)s, under_thirty_minutes = %(under_thirty_minutes)s, updated_at = NOW() WHERE id = %(id)s"
+        query = "UPDATE recipes SET name = %(name)s, description = %(description)s, instructions = %(instructions)s, date_made_on = %(date_made_on)s, under_thirty_minutes = %(under_thirty_minutes)s, updated_at = NOW() WHERE id = %(id)s;"
         results = connectToMySQL('recipes_schema').query_db(query, data)
         return results
     @classmethod
     def delete_recipe(cls, data):
-        query = "DELETE FROM recipes WHERE id = %(id)s"
+        query = "DELETE FROM recipes WHERE id = %(id)s;"
         results = connectToMySQL('recipes_schema').query_db(query, data)
         return results
